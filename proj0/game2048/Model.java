@@ -109,15 +109,14 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
         board.setViewingPerspective(side);
         Tile[] ts=new Tile[4];
         for(int i=0;i<4;i++){
-            for(int j=3;j>=0;j--){
-                ts[3-j]=board.tile(i,j);
+            for(int j=0;j<4;j++){
+                ts[j]=board.tile(i,3-j);
             }
             if(changeCol(ts,i))
                 changed=true;
@@ -136,37 +135,34 @@ public class Model extends Observable {
         int last=0;
         for(int i=1;i<n;i++){
             Tile t= ts[i];
-            if(t==null) {
+            if(t==null) continue;
+
+            int v=t.value();
+            Tile tem=ts[last];
+            if(tem==null){
+                board.move(col,n-1-last,t);
+                ts[i]=null;
+                ts[last]=t;
+                flag=true;
             }
-            else{
-                int v=t.value();
-                Tile tem=ts[last];
-                if(tem==null){
-                    board.move(col,n-1-last,t);
-                    ts[i]=null;
-                    ts[last]=t;
-                    flag=true;
+            else if(tem.value()==t.value()){
+                board.move(col,n-1-last,t);
+                score=score+2*v;
+                ts[i]=null;
+                last++;
+                flag=true;
+            }
+            else {
+                if (i - last > 1) {
+                    board.move(col, n - 2 - last, t);
+                    ts[i] = null;
+                    ts[last + 1] = t;
+                    flag = true;
                 }
-                else if(tem.value()==t.value()){
-                    board.move(col,n-1-last,t);
-                    score=score+2*v;
-                    ts[i]=null;
-                    last++;
-                    flag=true;
-                }
-                else {
-                    if (i - last > 1) {
-                        board.move(col, n - 2 - last, t);
-                        ts[i] = null;
-                        ts[last + 1] = t;
-                        flag = true;
-                    }
-                    last++;
-                }
+                last++;
             }
         }
         return flag;
-
     }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
