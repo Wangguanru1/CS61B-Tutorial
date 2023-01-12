@@ -7,8 +7,9 @@ public class ArrayDeque<T> implements Deque<T>{
     private T[] items;
 
     public ArrayDeque(){
-        this.size=8;
+        this.Maxsize=8;
         front=0;
+        items=(T[]) new Object[Maxsize];
     }
     private void resize(int newsize){
         Maxsize=newsize;
