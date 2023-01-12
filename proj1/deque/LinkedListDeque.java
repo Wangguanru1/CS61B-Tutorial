@@ -51,11 +51,7 @@ public class LinkedListDeque<Item> implements Deque<Item>,Iterable<Item>{
         last=addNode;
         size++;
     }
-
-    @Override
-    public boolean isEmpty() {
-        return size==0;
-    }
+    
 
     @Override
     public int size() {
@@ -141,5 +137,19 @@ public class LinkedListDeque<Item> implements Deque<Item>,Iterable<Item>{
         public LinkedLisDequeIterator(){
             iter=sentinel;
         }
+    }
+
+    public boolean equals(Object o){
+        if(o instanceof LinkedListDeque){
+            LinkedListDeque<Item> temp = (LinkedListDeque<Item>) o;
+            if(temp.size()==size()){
+                for(int i=0;i<size();i++){
+                    if(get(i)!=temp.get(i))
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }

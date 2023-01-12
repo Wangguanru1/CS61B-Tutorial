@@ -1,5 +1,7 @@
 package deque;
 
+import net.sf.saxon.om.Item;
+
 public class ArrayDeque<T> implements Deque<T>{
     private int size;
     private int Maxsize;
@@ -8,6 +10,11 @@ public class ArrayDeque<T> implements Deque<T>{
 
     public ArrayDeque(){
         this.Maxsize=8;
+        front=0;
+        items=(T[]) new Object[Maxsize];
+    }
+    public ArrayDeque(int maxsize){
+        Maxsize=maxsize;
         front=0;
         items=(T[]) new Object[Maxsize];
     }
@@ -39,10 +46,6 @@ public class ArrayDeque<T> implements Deque<T>{
         size++;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return size==0;
-    }
 
     @Override
     public int size() {
@@ -81,4 +84,19 @@ public class ArrayDeque<T> implements Deque<T>{
         if(index>=size) return null;
         return items[(front+index)%Maxsize];
     }
+
+    public boolean equals(Object o){
+        if(o instanceof ArrayDeque){
+            ArrayDeque<T> temp = (ArrayDeque<T>) o;
+            if(temp.size()==size()){
+                for(int i=0;i<size;i++){
+                    if(temp.get(i)!=get(i))
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
