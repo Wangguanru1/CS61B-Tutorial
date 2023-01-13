@@ -21,7 +21,9 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     private void resize(int newsize){
         Maxsize=newsize;
         T[] temp=(T[]) new Object[Maxsize];
-        System.arraycopy(items, front, temp, 0, size);
+        for(int i=0;i<size;i++){
+            temp[i]=get(i);
+        }
         items=temp;
         front=0;
     }
@@ -42,8 +44,9 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
         if(size==Maxsize){
             resize(Maxsize*2);
         }
-        items[(front+size)%Maxsize]=item;
         size++;
+        items[(front+size)%Maxsize]=item;
+
     }
 
 
@@ -74,6 +77,9 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     @Override
     public T removeLast() {
         if(size==0) return null;
+        if(Maxsize>=16&&size<=Maxsize*0.25){
+            resize((int) (Maxsize*0.5));
+        }
         T item = items[(front+size)%Maxsize];
         size--;
         return item;
@@ -82,7 +88,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     @Override
     public T get(int index) {
         if(index>=size) return null;
-        return items[(front+index)%Maxsize];
+        return items[(front+index+1)%Maxsize];
     }
 
     public boolean equals(Object o){
@@ -90,7 +96,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
             ArrayDeque<T> temp = (ArrayDeque<T>) o;
             if(temp.size()==size()){
                 for(int i=0;i<size;i++){
-                    if(temp.get(i).equals(get(i)))
+                    if(!temp.get(i).equals(get(i)))
                         return false;
                 }
                 return true;
