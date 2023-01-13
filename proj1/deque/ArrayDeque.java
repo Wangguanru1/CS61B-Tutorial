@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     private int size;
     private int Maxsize;
     private int front;
@@ -98,6 +98,12 @@ public class ArrayDeque<T> implements Deque<T>{
         }
         return false;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
     private class ArrayDequeIterator implements Iterator<T> {
         int index=0;
 
@@ -117,5 +123,6 @@ public class ArrayDeque<T> implements Deque<T>{
             index=0;
         }
     }
+
 
 }
