@@ -4,22 +4,22 @@ import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
-    private int Maxsize;
+    private int maxsize;
     private int front;
     private T[] items;
 
     public ArrayDeque() {
-        this.Maxsize = 8;
+        this.maxsize = 8;
         front = 0;
-        items = (T[]) new Object[Maxsize];
+        items = (T[]) new Object[maxsize];
     }
 
-    public void resize(int newsize) {
+    private void resize(int newsize) {
         T[] temp = (T[]) new Object[newsize];
         for (int i = 0; i < size; i++) {
             temp[i] = get(i);
         }
-        Maxsize = newsize;
+        maxsize = newsize;
         items = temp;
         front = newsize - 1;
     }
@@ -27,21 +27,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addFirst(T item) {
-        if (size == Maxsize) {
-            resize(Maxsize * 2);
+        if (size == maxsize) {
+            resize(maxsize * 2);
         }
         items[front] = item;
-        front = (front + Maxsize - 1) % Maxsize;
+        front = (front + maxsize - 1) % maxsize;
         size++;
     }
 
     @Override
     public void addLast(T item) {
-        if (size == Maxsize) {
-            resize(Maxsize * 2);
+        if (size == maxsize) {
+            resize(maxsize * 2);
         }
         size++;
-        items[(front + size) % Maxsize] = item;
+        items[(front + size) % maxsize] = item;
 
     }
 
@@ -54,37 +54,43 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-            System.out.println(items[(front + i) % Maxsize]);
+            System.out.println(items[(front + i) % maxsize]);
         }
     }
 
     @Override
     public T removeFirst() {
-        if (size == 0) return null;
-        if (Maxsize >= 16 && size <= Maxsize * 0.25) {
-            resize((int) (Maxsize * 0.5));
+        if (size == 0) {
+            return null;
         }
-        T item = items[(front + 1) % Maxsize];
-        front = (front + 1) % Maxsize;
+        if (maxsize >= 16 && size <= maxsize * 0.25) {
+            resize((int) (maxsize * 0.5));
+        }
+        T item = items[(front + 1) % maxsize];
+        front = (front + 1) % maxsize;
         size--;
         return item;
     }
 
     @Override
     public T removeLast() {
-        if (size == 0) return null;
-        if (Maxsize >= 16 && size <= Maxsize * 0.25) {
-            resize((int) (Maxsize * 0.5));
+        if (size == 0) {
+            return null;
         }
-        T item = items[(front + size) % Maxsize];
+        if (maxsize >= 16 && size <= maxsize * 0.25) {
+            resize((int) (maxsize * 0.5));
+        }
+        T item = items[(front + size) % maxsize];
         size--;
         return item;
     }
 
     @Override
     public T get(int index) {
-        if (index >= size) return null;
-        return items[(front + index + 1) % Maxsize];
+        if (index >= size) {
+            return null;
+        }
+        return items[(front + index + 1) % maxsize];
     }
 
     public boolean equals(Object o) {
@@ -92,8 +98,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             Deque<T> temp = (Deque<T>) o;
             if (temp.size() == size()) {
                 for (int i = 0; i < size; i++) {
-                    if (!temp.get(i).equals(get(i)))
+                    if (!temp.get(i).equals(get(i))) {
                         return false;
+                    }
                 }
                 return true;
             }
