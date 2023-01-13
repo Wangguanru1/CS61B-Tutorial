@@ -20,7 +20,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     }
     private void resize(int newsize){
         Maxsize=newsize;
-        T[] temp=(T[]) new Object[Maxsize];
+        T[] temp=(T[]) new Object[newsize];
         for(int i=0;i<size;i++){
             temp[i]=get(i);
         }
