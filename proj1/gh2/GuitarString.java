@@ -1,21 +1,24 @@
 package gh2;
 
 // TODO: uncomment the following import once you're ready to start this portion
+
 import deque.ArrayDeque;
 import deque.Deque;
 // TODO: maybe more imports
 
 //Note: This file will not compile until you complete the Deque implementations
 public class GuitarString {
-    /** Constants. Do not change. In case you're curious, the keyword final
+    /**
+     * Constants. Do not change. In case you're curious, the keyword final
      * means the values cannot be changed at runtime. We'll discuss this and
-     * other topics in lecture on Friday. */
+     * other topics in lecture on Friday.
+     */
     private static final int SR = 44100;      // Sampling Rate
     private static final double DECAY = .996; // energy decay factor
 
     /* Buffer for storing sound data. */
     // TODO: uncomment the following line once you're ready to start this portion
-     private Deque<Double> buffer;
+    private final Deque<Double> buffer;
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
@@ -23,9 +26,9 @@ public class GuitarString {
         //       cast the result of this division operation into an int. For
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
-        int buf_len = (int) Math.round(SR/frequency);
-        buffer=new ArrayDeque<>();
-        for(int i=0;i<buf_len;i++){
+        int buf_len = (int) Math.round(SR / frequency);
+        buffer = new ArrayDeque<>();
+        for (int i = 0; i < buf_len; i++) {
             buffer.addLast(.0);
         }
     }
@@ -41,12 +44,12 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
-        int times=5;
-        int size=buffer.size();
-        for(int i=0;i<times;i++){
-            for(int j=0;j<size;j++){
+        int times = 5;
+        int size = buffer.size();
+        for (int i = 0; i < times; i++) {
+            for (int j = 0; j < size; j++) {
                 buffer.removeFirst();
-                buffer.addLast(Math.random()-0.5);
+                buffer.addLast(Math.random() - 0.5);
             }
         }
     }
@@ -62,7 +65,7 @@ public class GuitarString {
         double sample = sample();
         buffer.removeFirst();
         double sec_sample = sample();
-        buffer.addLast((sample+sec_sample)*0.5*DECAY);
+        buffer.addLast((sample + sec_sample) * 0.5 * DECAY);
     }
 
     /* Return the double at the front of the buffer. */
@@ -71,4 +74,4 @@ public class GuitarString {
         return buffer.get(0);
     }
 }
-    // TODO: Remove all comments that say TODO when you're done.
+// TODO: Remove all comments that say TODO when you're done.
