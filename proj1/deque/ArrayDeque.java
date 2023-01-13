@@ -25,7 +25,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
             temp[i]=get(i);
         }
         items=temp;
-        front=0;
+        front=newsize-1;
     }
 
 
@@ -92,8 +92,8 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
     }
 
     public boolean equals(Object o){
-        if(o instanceof ArrayDeque){
-            ArrayDeque<T> temp = (ArrayDeque<T>) o;
+        if(o instanceof Deque){
+            Deque<T> temp = (Deque<T>) o;
             if(temp.size()==size()){
                 for(int i=0;i<size;i++){
                     if(!temp.get(i).equals(get(i)))
