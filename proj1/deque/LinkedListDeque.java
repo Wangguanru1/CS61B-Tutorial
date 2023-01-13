@@ -12,7 +12,7 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T>{
         return new LinkedLisDequeIterator();
     }
 
-    class Node<Item>{
+    private class Node<Item>{
         public Item item;
         public Node<Item> next;
         public Node<Item> before;

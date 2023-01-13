@@ -24,7 +24,7 @@ public class GuitarString {
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
         int buf_len = (int) Math.round(SR/frequency);
-        buffer=new ArrayDeque<>(buf_len);
+        buffer=new ArrayDeque<>();
         for(int i=0;i<buf_len;i++){
             buffer.addLast(.0);
         }

@@ -13,12 +13,8 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
         front=0;
         items=(T[]) new Object[Maxsize];
     }
-    public ArrayDeque(int maxsize){
-        Maxsize=maxsize;
-        front=0;
-        items=(T[]) new Object[Maxsize];
-    }
-    private void resize(int newsize){
+
+    public void resize(int newsize){
         T[] temp=(T[]) new Object[newsize];
         for(int i=0;i<size;i++){
             temp[i]=get(i);
