@@ -1,6 +1,6 @@
 package deque;
 
-import net.sf.saxon.om.Item;
+import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>{
     private int size;
@@ -90,13 +90,32 @@ public class ArrayDeque<T> implements Deque<T>{
             ArrayDeque<T> temp = (ArrayDeque<T>) o;
             if(temp.size()==size()){
                 for(int i=0;i<size;i++){
-                    if(temp.get(i)!=get(i))
+                    if(temp.get(i).equals(get(i)))
                         return false;
                 }
                 return true;
             }
         }
         return false;
+    }
+    private class ArrayDequeIterator implements Iterator<T> {
+        int index=0;
+
+        @Override
+        public boolean hasNext() {
+            return index<size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = items[index];
+            index += 1;
+            return returnItem;
+        }
+
+        public ArrayDequeIterator(){
+            index=0;
+        }
     }
 
 }
