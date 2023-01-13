@@ -19,11 +19,11 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T>{
         items=(T[]) new Object[Maxsize];
     }
     private void resize(int newsize){
-        Maxsize=newsize;
         T[] temp=(T[]) new Object[newsize];
         for(int i=0;i<size;i++){
             temp[i]=get(i);
         }
+        Maxsize=newsize;
         items=temp;
         front=newsize-1;
     }
