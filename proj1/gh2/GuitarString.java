@@ -3,7 +3,6 @@ package gh2;
 // TODO: uncomment the following import once you're ready to start this portion
 import deque.ArrayDeque;
 import deque.Deque;
-import net.sf.saxon.om.Item;
 // TODO: maybe more imports
 
 //Note: This file will not compile until you complete the Deque implementations
