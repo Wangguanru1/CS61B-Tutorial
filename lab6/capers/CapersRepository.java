@@ -35,13 +35,8 @@ public class CapersRepository {
     public static void setupPersistence() {
         // TODO
         CAPERS_FOLDER.mkdir();
-        try {
+        join(".capers","dogs").mkdir();
 
-            join(".capers","story").createNewFile();
-            join(".capers","dogs").mkdir();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
